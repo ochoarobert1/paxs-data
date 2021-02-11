@@ -2,6 +2,28 @@ var dataSet = [];
 jQuery(document).ready(function(e) {
     console.log('admin functions loaded');
 
+    jQuery('#newRegistry').on('click', function(e) {
+        e.preventDefault();
+        jQuery.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: {
+                action: 'new_data_parser'
+            },
+            beforeSend: function() {
+                jQuery('.modal-container').removeClass('modal-hidden');
+            },
+            success: function(response) {
+                jQuery('.modal-content').html(response);
+                jQuery('.modal-content').removeClass('modal-content-hidden');
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+
+    });
+
     jQuery.ajax({
         type: 'POST',
         url: ajaxurl,
@@ -43,7 +65,7 @@ jQuery(document).ready(function(e) {
                 columnDefs: [{
                         "render": function(data, type, row) {
                             if (data == '') {
-                                return '-----';
+                                return '<strong>-----</strong>';
                             } else {
                                 return data;
                             }
@@ -53,7 +75,7 @@ jQuery(document).ready(function(e) {
                     {
                         "render": function(data, type, row) {
                             if (data == '') {
-                                return '-----';
+                                return '<strong>-----</strong>';
                             } else {
                                 return data;
                             }
@@ -65,7 +87,7 @@ jQuery(document).ready(function(e) {
                             if (data != undefined) {
                                 var myDate = data.split('-');
                                 return myDate[2] + '-' + myDate[1] + '-' + myDate[0];
-                                
+
                             } else {
                                 return 'Sin Fecha';
                             }
@@ -77,9 +99,9 @@ jQuery(document).ready(function(e) {
                             if (data != undefined) {
                                 var myDate = data.split('-');
                                 return myDate[2] + '-' + myDate[1] + '-' + myDate[0];
-                                
+
                             } else {
-                                return 'Sin Fecha';
+                                return '<strong>Sin Fecha</strong>';
                             }
                         },
                         "targets": 5

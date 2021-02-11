@@ -8,6 +8,7 @@ function paxs_data_page_callback()
     </div>
     <div class="pass_custom_options_title">
         <h1><?php echo get_admin_page_title(); ?></h1>
+        <button id="newRegistry"><span class="dashicons dashicons-plus"></span> Nuevo Registro</button>
     </div>
     <div class="paxs_custom_options-content">
         <table id="paxsTables">
@@ -24,5 +25,8 @@ function paxs_data_page_callback()
             </thead>
             <tbody></tbody>
         </table>
+    </div>
+    <div class="modal-container modal-hidden">
+        <div class="modal-content modal-content-hidden"></div>
     </div>
 <?php }
