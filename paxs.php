@@ -84,8 +84,10 @@ function paxs_styles_scripts_callback($hook)
         return;
     }
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600&display=swap', null, '2.0.0', 'all');
+    wp_enqueue_style('datatables-css', '//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css', null, '2.0.0', 'all');
     wp_enqueue_style('paxs_admin_style', plugins_url('css/paxs.css', __FILE__), null, '2.0.0', 'all');
-    wp_register_script('paxs_admin_script', plugins_url('js/paxs.js', __FILE__), array('jquery'), '2.0.0', true);
+    wp_register_script('datatables-js', '//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js', array('jquery'), '2.0.0', true);
+    wp_register_script('paxs_admin_script', plugins_url('js/paxs.js', __FILE__), array('jquery', 'datatables-js'), '2.0.0', true);
     wp_enqueue_script('paxs_admin_script');
     wp_localize_script('paxs_admin_script', 'custom_admin_url', array(
         'paxs_db_version' => get_option('paxs_db_version')

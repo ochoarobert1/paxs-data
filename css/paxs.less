@@ -11,7 +11,7 @@ VARIABLES
 @black: #000000;
 @white: #ffffff;
 @red: #E00718;
-
+@blue: #0b98af;
 
 /* --------------------------------------------------------------
     CUSTOM OVERRIDES
@@ -48,8 +48,109 @@ VARIABLES
     background-repeat: no-repeat;
     background-position: center right;
     padding: 2rem;
+    font-family: @mainfont;
 }
 
 .pass_custom_options_title {
+    font-family: @mainfont;
     padding: .5rem 2rem;
+    border-bottom: 1px solid @red;
+
+    & h1 {
+        font-weight: 300;
+    }
+}
+
+.paxs_custom_options-content {
+    padding: 2rem;
+    max-width: 95%;
+}
+
+/* --------------------------------------------------------------
+    DATATABLES
+-------------------------------------------------------------- */
+.paxs_custom_options-content {
+
+    & .dataTables_wrapper {
+        font-family: @mainfont;
+    }
+
+    & .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter,
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_processing,
+    .dataTables_wrapper .dataTables_paginate {
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    & .dataTable {
+        width: 100% !important;
+        padding: 1rem 0;
+        border-bottom: 0 !important;
+    }
+
+    & .dataTables_wrapper .dataTables_length select {
+        border: 1px solid #aaa;
+        border-radius: 3px;
+        padding: 5px;
+        background-color: transparent;
+        padding: 4px;
+        min-width: 50px;
+    }
+
+    & .dataTable thead tr {
+        font-weight: bold;
+        background: @red;
+        color: white;
+
+        & th {
+            border-left: 1px solid black !important;
+            text-align: left !important;
+            font-size: 1rem;
+        }
+
+        & th:nth-child(1) {
+            border-left: 0 !important;
+        }
+
+        & th:last-child {
+            text-align: center !important;
+        }
+    }
+
+    & .dataTable tbody .odd {
+        background: #e4e4e4 !important;
+    }
+
+    & .dataTable tbody td {
+        font-size: 0.9rem;
+        padding: 12px 10px;
+        text-transform: uppercase;
+
+        & a {
+            color: white;
+            background: #656565;
+            padding: 5px;
+            cursor: pointer;
+            margin: 5px !important;
+            border-radius: 5px;
+
+            &:nth-child(2) {
+                background: @blue;
+            }
+
+            &:nth-child(3) {
+                background: @red;
+            }
+        }
+    }
+
+    & .dataTable tbody tr td:last-child {
+        text-align: center;
+    }
+
+    & .dataTables_wrapper .dataTables_paginate .paginate_button {
+        border: 1px solid #d4d4d4;
+    }
 }
