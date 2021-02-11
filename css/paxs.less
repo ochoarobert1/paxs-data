@@ -10,3 +10,46 @@ VARIABLES
 @mainfont: 'Titillium Web', sans-serif;
 @black: #000000;
 @white: #ffffff;
+@red: #E00718;
+
+
+/* --------------------------------------------------------------
+    CUSTOM OVERRIDES
+-------------------------------------------------------------- */
+.toplevel_page_paxs_dashboard {
+    & #wpcontent {
+        padding: 0;
+    }
+
+    & ul#adminmenu a.wp-has-current-submenu:after,
+    ul#adminmenu>li.current>a.current:after {
+        border-right-color: @red;
+    }
+}
+
+.paxs_page_paxs_main_data {
+    & #wpcontent {
+        padding: 0;
+    }
+
+    & ul#adminmenu a.wp-has-current-submenu:after,
+    ul#adminmenu>li.current>a.current:after {
+        border-right-color: @red;
+    }
+}
+
+/* --------------------------------------------------------------
+    MAIN DASHBOARD
+-------------------------------------------------------------- */
+.paxs_custom_options-header {
+    display: block;
+    background: @red url(../img/pattern.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center right;
+    padding: 2rem;
+}
+
+.pass_custom_options_title {
+    padding: .5rem 2rem;
+}
