@@ -24,9 +24,57 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/* --------------------------------------------------------------
+    FUNCTIONS ON ACTIVATION
+-------------------------------------------------------------- */
+register_activation_hook(__FILE__, 'paxs_create_database');
+
+function paxs_create_database()
+{
+    global $wpdb;
+    $table_name = $wpdb->prefix . "paxs_pass_data";
+    $paxs_db_version = '2.0.0';
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+                ID mediumint(9) NOT NULL AUTO_INCREMENT,
+                apellido varchar(100) NULL,
+                nombre varchar(100) NULL,
+                cedula varchar(100) NULL,
+                pasaporte varchar(100) NULL,
+                fecha_nac date DEFAULT '0000-00-00' NULL,
+                fecha_ven date DEFAULT '0000-00-00' NULL,
+                image_url varchar(100) NULL,
+                PRIMARY KEY  (ID)
+        ) $charset_collate;";
+
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+
+    $table_name = $wpdb->prefix . "paxs_hist_data";
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+                ID mediumint(9) NOT NULL AUTO_INCREMENT,
+                cedula varchar(100) NULL,
+                ruta_vuelo varchar(100) NULL,
+                fecha_vuelo date DEFAULT '0000-00-00' NULL,
+                aerolinea varchar(100) NULL,
+                nro_vuelo varchar(100) NULL,
+                nro_boleto varchar(100) NULL,
+                reservacion varchar(100) NULL,
+                PRIMARY KEY  (ID)
+        ) $charset_collate;";
+
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+
+    add_option('paxs_db_version', $paxs_db_version);
+}
+
 
 /* --------------------------------------------------------------
-ADDING CUSTOM STYLES / SCRIPTS
+    ADDING CUSTOM STYLES / SCRIPTS
 -------------------------------------------------------------- */
 add_action('admin_enqueue_scripts', 'paxs_styles_scripts_callback', 99);
 
@@ -37,3 +85,7 @@ function paxs_styles_scripts_callback()
     wp_register_script('paxs_admin_script', plugins_url('js/paxs.js', __FILE__), array('jquery'), '2.0.0', true);
     wp_enqueue_script('paxs_admin_script');
 }
+
+/* --------------------------------------------------------------
+    INCLUDE REQUIRED FILES
+-------------------------------------------------------------- */
