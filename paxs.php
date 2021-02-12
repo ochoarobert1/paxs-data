@@ -87,6 +87,7 @@ function paxs_styles_scripts_callback($hook)
     wp_enqueue_style('datatables-css', '//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css', null, '2.0.0', 'all');
     wp_enqueue_style('sweetalert-css', plugins_url('css/sweetalert.css', __FILE__), null, '2.0.0', 'all');
     wp_enqueue_style('paxs_admin_style', plugins_url('css/paxs.css', __FILE__), null, '2.0.0', 'all');
+    wp_enqueue_style('paxs_admin_responsive', plugins_url('css/responsive.css', __FILE__), null, '2.0.0', 'all');
     wp_register_script('datatables-js', '//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js', array('jquery'), '2.0.0', true);
     wp_register_script('sweetalert-js', plugins_url('js/sweetalert.js', __FILE__), array('jquery'), '2.0.0', true);
     wp_register_script('paxs_admin_script', plugins_url('js/paxs.js', __FILE__), array('jquery', 'datatables-js', 'sweetalert-js'), '2.0.0', true);
