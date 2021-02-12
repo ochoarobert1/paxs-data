@@ -56,7 +56,7 @@ function paxs_create_database()
 
     $sql = "CREATE TABLE IF NOT EXISTS $table_name (
                 ID mediumint(9) NOT NULL AUTO_INCREMENT,
-                cedula varchar(100) NULL,
+                id_registro mediumint(9) NOT NULL,
                 ruta_vuelo varchar(100) NULL,
                 fecha_vuelo date DEFAULT '0000-00-00' NULL,
                 aerolinea varchar(100) NULL,
@@ -85,9 +85,11 @@ function paxs_styles_scripts_callback($hook)
     }
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600&display=swap', null, '2.0.0', 'all');
     wp_enqueue_style('datatables-css', '//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css', null, '2.0.0', 'all');
+    wp_enqueue_style('sweetalert-css', plugins_url('css/sweetalert.css', __FILE__), null, '2.0.0', 'all');
     wp_enqueue_style('paxs_admin_style', plugins_url('css/paxs.css', __FILE__), null, '2.0.0', 'all');
     wp_register_script('datatables-js', '//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js', array('jquery'), '2.0.0', true);
-    wp_register_script('paxs_admin_script', plugins_url('js/paxs.js', __FILE__), array('jquery', 'datatables-js'), '2.0.0', true);
+    wp_register_script('sweetalert-js', plugins_url('js/sweetalert.js', __FILE__), array('jquery'), '2.0.0', true);
+    wp_register_script('paxs_admin_script', plugins_url('js/paxs.js', __FILE__), array('jquery', 'datatables-js', 'sweetalert-js'), '2.0.0', true);
     wp_enqueue_script('paxs_admin_script');
     wp_localize_script('paxs_admin_script', 'custom_admin_url', array(
         'paxs_db_version' => get_option('paxs_db_version')
@@ -98,5 +100,7 @@ function paxs_styles_scripts_callback($hook)
     INCLUDE REQUIRED FILES
 -------------------------------------------------------------- */
 require_once('inc/admin.php');
-require_once('inc/dashboard.php');
+require_once('inc/historical.php');
 require_once('inc/main-data.php');
+require_once('inc/dashboard.php');
+require_once('inc/main-view.php');
