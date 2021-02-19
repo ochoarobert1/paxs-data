@@ -58,7 +58,7 @@ VARIABLES
 
     & ul#adminmenu a.wp-has-current-submenu:after,
     ul#adminmenu>li.current>a.current:after {
-        border-right-color: @red;
+        border-right-color: @gray;
     }
 }
 
@@ -69,7 +69,7 @@ VARIABLES
 
     & ul#adminmenu a.wp-has-current-submenu:after,
     ul#adminmenu>li.current>a.current:after {
-        border-right-color: @red;
+        border-right-color: @gray;
     }
 }
 
@@ -78,7 +78,7 @@ VARIABLES
 -------------------------------------------------------------- */
 .paxs_custom_options-header {
     display: block;
-    background: @red url(../img/pattern.png);
+    background: @gray url(../img/pattern.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center right;
@@ -90,7 +90,7 @@ VARIABLES
     .display(flex);
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid @red;
+    border-bottom: 1px solid @gray;
     font-family: @mainfont;
     padding: .5rem 2rem;
     padding-right: 4rem;
@@ -159,7 +159,7 @@ VARIABLES
 
     & .dataTable thead tr {
         font-weight: bold;
-        background: @red;
+        background: @gray;
         color: white;
 
         & th {
@@ -264,12 +264,52 @@ VARIABLES
 
         & .form-controller {
             .display(flex);
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             flex-wrap: wrap;
 
+            & .form-controller-wrapper {
+                flex: 0 0 64%;
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+
+            & .form-controller-image-wrapper {
+                flex: 0 0 35%;
+
+                & .button-image-wrapper {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: space-between;
+
+                    & .upload-file-btn {
+                        background: @green;
+                        color: white;
+                        border: 0;
+                        margin-top: -5px;
+                        padding: 7px;
+                        cursor: pointer;
+                        .transition(all .3s ease-in-out);
+
+                        &:hover {
+                            background: @greenhover;
+                            color: @white;
+                        }
+                    }
+                }
+
+                & img {
+                    max-height: 200px;
+                    width: auto;
+                    margin: 1rem auto;
+                    display: block;
+                }
+            }
+
             & .input-wrapper {
-                flex: 0 0 31%;
+                flex: 0 0 46%;
                 padding: 0.5rem;
                 margin-bottom: 0.3rem;
 
@@ -341,16 +381,37 @@ VARIABLES
 
 .paxs-new-registry-info {
     .display(flex);
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
     border-bottom: 1px solid black;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
 
+    & .paxs-hist-new-wrapper {
+        flex: 0 0 65%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+       
+    }
+
+    & .paxs-hist-image-wrapper {
+        flex: 0 0 30%;
+
+        & img {
+            max-height: 200px;
+            width: auto;
+            margin: 10px auto;
+            display: block;
+        }
+    }
+
     & .label-wrapper {
-        flex: 0 0 31%;
-        padding: 0.5rem;
+        flex: 0 0 45%;
+        padding: .5rem;
         font-size: 1rem;
     }
 }
@@ -362,7 +423,7 @@ VARIABLES
 
         & tr {
             & th {
-                background: @red;
+                background: @gray;
                 padding: 0.8rem;
                 color: white;
                 font-weight: bold;
@@ -437,13 +498,13 @@ VARIABLES
             }
 
             & .cancel-btn {
-                background: @red;
+                background: @gray;
                 color: @white;
                 border: 0;
                 .transition(all .3s ease-in-out);
 
                 &:hover {
-                    background: @redhover;
+                    background: @grayhover;
                 }
             }
         }
@@ -465,7 +526,7 @@ VARIABLES
             .transition(all .3s ease-in-out);
 
             & .dashicons {
-               font-size: 17px; 
+                font-size: 17px;
             }
 
             &:nth-child(1) {
@@ -477,12 +538,57 @@ VARIABLES
             }
 
             &:nth-child(2) {
-                background: @red;
+                background: @gray;
 
                 &:hover {
-                    background: @redhover;
+                    background: @grayhover;
                 }
             }
         }
     }
 }
+
+.dashboard-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    flex-wrap: wrap;
+
+    & .dashboard-item {
+        & .paxs-image-wrapper {
+            border: 6px solid white;
+            background: @gray;
+            border-radius: 100%;
+            overflow: hidden;
+            padding: 0.8rem;
+            .transition(all .3s ease-in-out);
+
+            & img {
+                padding: 1rem;
+                max-width: 80px;
+                .transition(all .3s ease-in-out);
+            }
+
+            &:hover {
+                background: @grayhover;
+
+                & img {
+                    .transform(scale(.8));
+                }
+            }
+        }
+
+        & a {
+            text-decoration: none;
+        }
+
+        & h3 {
+            color: #23282d;
+            font-size: 1.4rem;
+            margin: 1em 0;
+            font-family: 'Titillium Web', sans-serif;
+        }
+    }
+}
+

@@ -83,6 +83,8 @@ function paxs_styles_scripts_callback($hook)
     if (!in_array($hook, $allowed)) {
         return;
     }
+
+    wp_enqueue_media();
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600&display=swap', null, '2.0.0', 'all');
     wp_enqueue_style('datatables-css', '//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css', null, '2.0.0', 'all');
     wp_enqueue_style('sweetalert-css', plugins_url('css/sweetalert.css', __FILE__), null, '2.0.0', 'all');

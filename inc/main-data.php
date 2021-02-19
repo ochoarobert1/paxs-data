@@ -30,33 +30,45 @@ function new_data_parser_callback()
     </div>
     <div class="paxs-new-registry-container">
         <form id="newRegistryForm" class="form-controller">
-            <div class="input-wrapper">
-                <label for="apellidos">Apellidos</label>
-                <input type="text" name="apellidos" class="form-control" />
+            <div class="form-controller-wrapper">
+                <div class="input-wrapper">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" name="apellidos" class="form-control" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" name="nombres" class="form-control" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="cedula">Cédula</label>
+                    <input type="text" name="cedula" class="form-control" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="pasaporte">Pasaporte</label>
+                    <input type="text" name="pasaporte" class="form-control" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="fecha_nac">Fecha de Nacimiento</label>
+                    <input type="date" name="fecha_nac" class="form-control" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="fecha_ven">Fecha de Vencimiento</label>
+                    <input type="date" name="fecha_ven" class="form-control" />
+                </div>
             </div>
-            <div class="input-wrapper">
-                <label for="nombres">Nombres</label>
-                <input type="text" name="nombres" class="form-control" />
-            </div>
-            <div class="input-wrapper">
-                <label for="cedula">Cédula</label>
-                <input type="text" name="cedula" class="form-control" />
-            </div>
-            <div class="input-wrapper">
-                <label for="pasaporte">Pasaporte</label>
-                <input type="text" name="pasaporte" class="form-control" />
-            </div>
-            <div class="input-wrapper">
-                <label for="fecha_nac">Fecha de Nacimiento</label>
-                <input type="date" name="fecha_nac" class="form-control" />
-            </div>
-            <div class="input-wrapper">
-                <label for="fecha_ven">Fecha de Vencimiento</label>
-                <input type="date" name="fecha_ven" class="form-control" />
+            <div class="form-controller-image-wrapper">
+                <div class="input-wrapper">
+                    <div class="button-image-wrapper">
+                        <label for="image_url">Imagen del Pasaporte</label>
+                        <button type='button' class="upload-file-btn" id="paxs_media_manager"><span class="dashicons dashicons-cloud-upload"></span></button>
+                    </div>
+                    <img id="paxs-preview-image" src="https://placehold.it/200x200" />
+                    <input type="hidden" name="image_url" id="image_url" value="" />
+                </div>
             </div>
 
             <div class="submit-wrapper">
-                <button id="newRegistrySubmit">Guardar Registro</button>
+                <button id="newRegistrySubmit" class="button-primary">Guardar Registro</button>
                 <div class="modal-loader modal-hidden">
                     <div class="loader-css">
                     </div>
@@ -87,8 +99,10 @@ function add_new_data_parser_callback()
             'pasaporte' => $info['pasaporte'],
             'fecha_nac' => $info['fecha_nac'],
             'fecha_ven' => $info['fecha_ven'],
+            'image_url' => $info['image_url'],
         ),
         array(
+            '%s',
             '%s',
             '%s',
             '%s',
@@ -130,32 +144,49 @@ function edit_data_parser_callback()
     </div>
     <div class="paxs-new-registry-container">
         <form id="editRegistryForm" class="form-controller">
-            <input type="hidden" name="ID" value="<?php echo $queried_data->ID; ?>">
-            <div class="input-wrapper">
-                <label for="apellidos">Apellidos</label>
-                <input type="text" name="apellidos" class="form-control" value="<?php echo $queried_data->apellido; ?>" />
+            <div class="form-controller-wrapper">
+                <input type="hidden" name="ID" value="<?php echo $queried_data->ID; ?>">
+                <div class="input-wrapper">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" name="apellidos" class="form-control" value="<?php echo $queried_data->apellido; ?>" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" name="nombres" class="form-control" value="<?php echo $queried_data->nombre; ?>" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="cedula">Cédula</label>
+                    <input type="text" name="cedula" class="form-control" value="<?php echo $queried_data->cedula; ?>" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="pasaporte">Pasaporte</label>
+                    <input type="text" name="pasaporte" class="form-control" value="<?php echo $queried_data->pasaporte; ?>" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="fecha_nac">Fecha de Nacimiento</label>
+                    <input type="date" name="fecha_nac" class="form-control" value="<?php echo $queried_data->fecha_nac; ?>" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="fecha_ven">Fecha de Vencimiento</label>
+                    <input type="date" name="fecha_ven" class="form-control" value="<?php echo $queried_data->fecha_ven; ?>" />
+                </div>
             </div>
-            <div class="input-wrapper">
-                <label for="nombres">Nombres</label>
-                <input type="text" name="nombres" class="form-control" value="<?php echo $queried_data->nombre; ?>" />
+            <div class="form-controller-image-wrapper">
+                <div class="input-wrapper">
+                    <div class="button-image-wrapper">
+                        <label for="image_url">Imagen del Pasaporte</label>
+                        <button type='button' class="upload-file-btn" id="paxs_media_manager"><span class="dashicons dashicons-cloud-upload"></span></button>
+                    </div>
+                    <?php $image_id = $queried_data->image_url; ?>
+                    <?php if (intval($image_id) > 0) { ?>
+                        <?php $image = wp_get_attachment_image($image_id, 'medium', false, array('id' => 'paxs-preview-image')); ?>
+                    <?php } else { ?>
+                        <?php $image = '<img id="paxs-preview-image" src="https://placehold.it/200x200" />'; ?>
+                    <?php } ?>
+                    <?php echo $image; ?>
+                    <input type="hidden" name="image_url" id="image_url" value="<?php echo $queried_data->image_url; ?>" class="regular-text" />
+                </div>
             </div>
-            <div class="input-wrapper">
-                <label for="cedula">Cédula</label>
-                <input type="text" name="cedula" class="form-control" value="<?php echo $queried_data->cedula; ?>" />
-            </div>
-            <div class="input-wrapper">
-                <label for="pasaporte">Pasaporte</label>
-                <input type="text" name="pasaporte" class="form-control" value="<?php echo $queried_data->pasaporte; ?>" />
-            </div>
-            <div class="input-wrapper">
-                <label for="fecha_nac">Fecha de Nacimiento</label>
-                <input type="date" name="fecha_nac" class="form-control" value="<?php echo $queried_data->fecha_nac; ?>" />
-            </div>
-            <div class="input-wrapper">
-                <label for="fecha_ven">Fecha de Vencimiento</label>
-                <input type="date" name="fecha_ven" class="form-control" value="<?php echo $queried_data->fecha_ven; ?>" />
-            </div>
-
             <div class="submit-wrapper">
                 <button id="editRegistrySubmit">Actualizar Registro</button>
                 <div class="modal-loader modal-hidden">
@@ -188,9 +219,11 @@ function add_edit_data_parser_callback()
             'pasaporte' => $info['pasaporte'],
             'fecha_nac' => $info['fecha_nac'],
             'fecha_ven' => $info['fecha_ven'],
+            'image_url' => $info['image_url'],
         ),
         array('ID' => $info['ID']),
         array(
+            '%s',
             '%s',
             '%s',
             '%s',
@@ -202,4 +235,19 @@ function add_edit_data_parser_callback()
     );
 
     wp_die();
+}
+
+// Ajax action to refresh the user image
+add_action('wp_ajax_paxs_get_image', 'paxs_get_image_callback');
+function paxs_get_image_callback()
+{
+    if (isset($_GET['id'])) {
+        $image = wp_get_attachment_image(filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT), 'medium', false, array('id' => 'myprefix-preview-image'));
+        $data = array(
+            'image'    => $image,
+        );
+        wp_send_json_success($data);
+    } else {
+        wp_send_json_error();
+    }
 }
