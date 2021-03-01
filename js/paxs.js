@@ -230,8 +230,8 @@ function Refresh_Image(the_id) {
 
     jQuery.get(ajaxurl, data, function(response) {
 
-        if(response.success === true) {
-            jQuery('#paxs-preview-image').replaceWith( response.data.image );
+        if (response.success === true) {
+            jQuery('#paxs-preview-image').replaceWith(response.data.image);
         }
     });
 }
@@ -429,6 +429,72 @@ jQuery(document).on('click', '.edit-btn', function(e) {
             jQuery('.historical-body').html('');
             jQuery('.historical-body').html(response);
             jQuery('.add-row').remove();
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+jQuery(document).on('click', '#reportsDateBtn', function(e) {
+    e.preventDefault();
+    jQuery.ajax({
+        type: 'POST',
+        url: ajaxurl,
+        data: {
+            action: 'reports_date',
+            data: jQuery('#reportsByDate').serialize()
+        },
+        beforeSend: function() {
+            jQuery('#reportsDateBtn').next().removeClass('modal-hidden');
+        },
+        success: function(response) {
+            jQuery('#reportsDateBtn').next().addClass('modal-hidden');
+
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+jQuery(document).on('click', '#reportsUserBtn', function(e) {
+    e.preventDefault();
+    jQuery.ajax({
+        type: 'POST',
+        url: ajaxurl,
+        data: {
+            action: 'reports_user',
+            data: jQuery('#reportsByUser').serialize()
+        },
+        beforeSend: function() {
+            jQuery('#reportsUserBtn').next().removeClass('modal-hidden');
+        },
+        success: function(response) {
+            jQuery('#reportsUserBtn').next().addClass('modal-hidden');
+
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+jQuery(document).on('click', '#reportsFlightBtn', function(e) {
+    e.preventDefault();
+    jQuery.ajax({
+        type: 'POST',
+        url: ajaxurl,
+        data: {
+            action: 'reports_flight',
+            data: jQuery('#reportsByFlight').serialize()
+        },
+        beforeSend: function() {
+            jQuery('#reportsFlightBtn').next().removeClass('modal-hidden');
+        },
+        success: function(response) {
+            jQuery('#reportsFlightBtn').next().addClass('modal-hidden');
+
         },
         error: function(error) {
             console.log(error);

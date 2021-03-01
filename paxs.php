@@ -79,7 +79,7 @@ add_action('admin_enqueue_scripts', 'paxs_styles_scripts_callback', 99);
 
 function paxs_styles_scripts_callback($hook)
 {
-    $allowed = array('toplevel_page_paxs_dashboard', 'paxs_page_paxs_main_data');
+    $allowed = array('toplevel_page_paxs_dashboard', 'paxs_page_paxs_main_data', 'paxs_page_paxs_reports_data');
     if (!in_array($hook, $allowed)) {
         return;
     }
@@ -107,3 +107,4 @@ require_once('inc/historical.php');
 require_once('inc/main-data.php');
 require_once('inc/dashboard.php');
 require_once('inc/main-view.php');
+require_once('inc/reports.php');

@@ -226,6 +226,10 @@ function edit_historical_data_parser_callback()
 add_action('wp_ajax_edit_new_historical_data_parser', 'edit_new_historical_data_parser_callback');
 function edit_new_historical_data_parser_callback()
 {
+    if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+        error_reporting( E_ALL );
+        ini_set( 'display_errors', 1 );
+    }
     parse_str($_POST['data'], $info);
 
     global $wpdb;
