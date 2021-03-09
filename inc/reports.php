@@ -1,5 +1,8 @@
 <?php
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 function paxs_reports_page_callback()
 {
 ?>
@@ -61,7 +64,7 @@ function paxs_reports_page_callback()
                     </form>
                 </div>
             </div>
-            <iframe class="paxs-report-generator-container"></iframe>
+            <div class="paxs-report-generator-container"></div>
         </div>
     </div>
     <div class="modal-container modal-hidden">
@@ -82,9 +85,6 @@ function reports_date_callback()
     $begin = $info['begin'];
     $end = $info['end'];
 
-    var_dump($begin);
-    var_dump($end);
-
     global $wpdb;
     $maintable = $wpdb->prefix . 'paxs_pass_data';
     $secondtable = $wpdb->prefix . 'paxs_hist_data';
@@ -99,7 +99,92 @@ function reports_date_callback()
 
     $queried_hist = $wpdb->get_results($sql);
 
-    var_dump($queried_hist);
+    ob_start();
+    //require_once('template-reports.php');
+?>
+    <h1 style="font-weight: 300;">Reporte del Sistema</h1>
+    <hr>
+    <div class="paxs-reports-range">
+        <h3>Rango de Búsqueda:</h3>
+        <strong>Desde:</strong> <?php echo $start_dt->format('d-m-Y'); ?> | <strong>Hasta: </strong> <?php echo $end_dt->format('d-m-Y'); ?>
+    </div>
+    <hr>
+    <table cellpadding="0" cellspacing="0" class="custom-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Ruta</th>
+                <th>Fecha de Vuelo</th>
+                <th>Aerolínea</th>
+                <th>Nro. Vuelo</th>
+                <th>Nro. Boleto</th>
+                <th>Nombre</th>
+                <th>Cédula</th>
+                <th>Pasaporte</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <?php $i = 1; ?>
+            <?php foreach ($queried_hist as $item) { ?>
+                <?php $class = ($i % 2 == 0) ? 'even' : 'odd'; ?>
+                <tr class="<?php echo $class; ?>">
+                    <td><?php echo $i; ?></td>
+                    <td><?php echo $item->ruta_vuelo; ?></td>
+                    <td>
+                        <?php $tempdate = new DateTime($item->fecha_vuelo . ' 00:00:00'); ?>
+                        <?php echo $tempdate->format('d-m-Y'); ?>
+                    </td>
+                    <td><?php echo $item->aerolinea; ?></td>
+                    <td><?php echo $item->nro_vuelo; ?></td>
+                    <td><?php echo $item->nro_boleto; ?></td>
+                    <td><?php echo $item->nombre; ?> <?php echo $item->apellido; ?></td>
+                    <td><?php echo $item->cedula; ?></td>
+                    <td><?php echo $item->pasaporte; ?></td>
+                </tr>
+            <?php $i++;
+            } ?>
+
+        </tbody>
+    </table>
+
+    <div class="paxs-reports-range-footer">
+        <hr>
+        <h6>Total Resultados: <?php echo count($queried_hist); ?></h6>
+    </div>
+<?php
+
+    $content = ob_get_clean();
+
+    echo $content;
+
+    /* DOMPDF */
+    /*
+    require_once('vendor/autoload.php');
+
+    $options = new Options();
+    $options->set('defaultFont', 'Helvetica');
+    $dompdf = new Dompdf($options);
+    $dompdf->set_paper("Letter", "portrait");
+    $dompdf->set_option('isHtml5ParserEnabled', true);
+
+    ob_start();
+    require_once('template-reports.php');
+    $html = ob_get_clean();
+
+    // Cargamos el contenido HTML.
+    $dompdf->load_html(utf8_decode($html));
+
+    
+
+    // Renderizamos el documento PDF.
+    $dompdf->render();
+
+    // Enviamos el fichero PDF al navegador.
+    $dompdf->stream("file.pdf");
+    //$content = $dompdf->output();
+    */
+
 
 
     wp_die();

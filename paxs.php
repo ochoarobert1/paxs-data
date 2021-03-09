@@ -27,6 +27,10 @@ License: GPL2
 /* --------------------------------------------------------------
     FUNCTIONS ON ACTIVATION
 -------------------------------------------------------------- */
+
+
+
+
 register_activation_hook(__FILE__, 'paxs_create_database');
 
 function paxs_create_database()
@@ -102,9 +106,11 @@ function paxs_styles_scripts_callback($hook)
 /* --------------------------------------------------------------
     INCLUDE REQUIRED FILES
 -------------------------------------------------------------- */
+
 require_once('inc/admin.php');
 require_once('inc/historical.php');
 require_once('inc/main-data.php');
 require_once('inc/dashboard.php');
 require_once('inc/main-view.php');
 require_once('inc/reports.php');
+
